@@ -1,0 +1,38 @@
+name: Angular Build & Deploy to GitHub Pages
+
+# Triggers
+on:
+  push:
+    branches:
+      - main   # Runs on push to main
+  workflow_dispatch:   # Allows manual trigger from GitHub UI
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repo
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20  # Match your Angular app version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Build Angular app
+      - name: Build Angular
+        run: npm run build -- --prod
+
+      # Step 5: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/<your-angular-app-name>  # Replace with your Angular build output folder

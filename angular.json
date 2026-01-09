@@ -18,6 +18,7 @@
             "builder": "@angular/build:application",
             "options": {
               "outputPath": "dist/task-manager",
+               "baseHref": "/sample_task_manager/",
               "index": "src/index.html",
               "browser": "src/main.ts",
               "polyfills": [
